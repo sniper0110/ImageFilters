@@ -52,6 +52,10 @@ def user_profile(request):
 
 def user_home_page(request):
 
+    user = request.user
+    username = user.username
+    email = user.email
+
     context = {}
     return render(request, 'imagefilters/home_page.html')
 
