@@ -53,10 +53,10 @@ def user_profile(request):
 def user_home_page(request):
 
     user = request.user
-    username = user.username
-    email = user.email
+    #image_url = user.myuser.useroriginalimage_set.get(pk=1).original_image.url
+    images = user.myuser.useroriginalimage_set.all()
 
-    context = {}
-    return render(request, 'imagefilters/home_page.html')
+    context = {'images':images}
+    return render(request, 'imagefilters/home_page.html', context=context)
 
 

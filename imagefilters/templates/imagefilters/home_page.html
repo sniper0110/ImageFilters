@@ -43,40 +43,33 @@
         <h5 class="card-title">Original images</h5>
 
           <table class="table table-hover">
-            <thead>
+              {% for image in images %}
+              {% if image %}
+                <th scope="col">
+                    <div class="w3-card-4">
+                      <img src="{{image.original_image.url}}">
+                    </div>
+                </th>
+
+              {% endif %}
+              {% endfor%}
               <tr>
                 <th scope="col">
                     <div class="w3-card-4">
-                      <img src="img_avatar.png" alt="Person">
+                      <img src="{{image_url}}">
                     </div>
                 </th>
                 <th scope="col">
                     <div class="w3-card-4">
-                      <img src="img_avatar.png" alt="Person">
+                        <img src="{{image_url}}">
                     </div>
                 </th>
                 <th scope="col">
                     <div class="w3-card-4">
-                      <img src="img_avatar.png" alt="Person">
-                    </div>
-                </th>
-                <th scope="col">
-                    <div class="w3-card-4">
-                      <img src="img_avatar.png" alt="Person">
-                    </div>
-                </th>
-                <th scope="col">
-                    <div class="w3-card-4">
-                      <img src="img_avatar.png" alt="Person">
-                    </div>
-                </th>
-                <th scope="col">
-                    <div class="w3-card-4">
-                      <img src="img_avatar.png" alt="Person">
+                        <img src="{{image_url}}">
                     </div>
                 </th>
               </tr>
-            </thead>
             <tbody>
 
 
