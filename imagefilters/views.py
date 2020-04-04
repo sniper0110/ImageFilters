@@ -53,6 +53,6 @@ def user_profile(request):
 def user_home_page(request):
 
     context = {}
-    return render(request, 'imagefilters/user_home_page.html')
+    return render(request, 'imagefilters/home_page.html')
 
 
