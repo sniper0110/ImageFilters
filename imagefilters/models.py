@@ -15,7 +15,7 @@ class MyUser(models.Model):
 class UserOriginalImage(models.Model):
 
     original_image_name = models.CharField(max_length=200, null=True)
-    the_user = models.ForeignKey(MyUser, on_delete=models.CASCADE, null=True)
+    myuser = models.ForeignKey(MyUser, on_delete=models.CASCADE, null=True, blank=True)
 
     original_image = models.ImageField(null=True, upload_to="original_images/")
     creation_date = models.DateTimeField(auto_now=True, null=True)

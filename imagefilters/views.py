@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
-from .forms import *
+from django.forms import inlineformset_factory
 
+from .forms import *
+from .models import *
 # Create your views here.
 def login_page(request):
 
@@ -59,4 +61,27 @@ def user_home_page(request):
     context = {'images':images}
     return render(request, 'imagefilters/home_page.html', context=context)
 
+
+def upload_images(request):
+
+    OriginalImageFormset = inlineformset_factory(MyUser, UserOriginalImage,
+                                                 fields=('original_image_name', 'original_image'), extra=1)
+
+    formset = OriginalImageFormset(queryset=UserOriginalImage.objects.none(), instance=request.user.myuser)
+
+    if request.method == 'POST':
+
+        print('request.POST : ', request.POST)
+        formset = OriginalImageFormset(request.POST, request.FILES, instance=request.user.myuser)
+
+        if formset.is_valid():
+            formset.save()
+            print('upload image form has been saved')
+
+            return redirect('/home')
+        else:
+            print('upload_imgs_form.errors : ', formset.errors)
+
+    context ={'upload_imgs_formset':formset}
+    return render(request, 'imagefilters/upload_images_form.html', context=context)
 

@@ -10,4 +10,5 @@ urlpatterns=[
     path('home', views.user_home_page, name='home_page'),
     path('', views.logout_user, name='logout_user'),
     path('profile', views.user_profile, name='user_profile'),
+    path('home/upload_images', views.upload_images, name='upload_imgs'),
 ]
