@@ -9,9 +9,7 @@
 <form method="post" enctype="multipart/form-data">
 {% csrf_token %}
 
-    {{upload_imgs_formset}}
-
-
+    {{upload_imgs_formset.as_p}}
 
     <input type="submit" value="submit">
 </form>

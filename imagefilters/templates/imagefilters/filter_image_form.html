@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Image filtering form</title>
+</head>
+<body>
+
+This where the image filtering form will be.
+
+<form method="post">
+    {% csrf_token %}
+
+    {{formset.as_p}}
+
+    <input type="submit" value="Apply filter">
+</form>
+
+</body>
+</html>

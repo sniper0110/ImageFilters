@@ -26,10 +26,17 @@ class UserOriginalImage(models.Model):
 
 class UserEditedImage(models.Model):
 
+    FILTER_TYPES = (
+        ('gaussian', 'gaussian'),
+        ('edging', 'edging')
+    )
+
     edited_image_name = models.CharField(max_length=200, null=True)
     original_image = models.ForeignKey(UserOriginalImage, on_delete=models.DO_NOTHING, null=True)
     edited_image = models.ImageField(null=True, upload_to="edited_images")
     creation_date = models.DateTimeField(auto_now=True, null=True)
+
+    filter_type = models.CharField(max_length=200, null=True, choices=FILTER_TYPES)
 
     def __str__(self):
         return self.edited_image_name

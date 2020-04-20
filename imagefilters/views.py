@@ -71,7 +71,6 @@ def upload_images(request):
 
     if request.method == 'POST':
 
-        print('request.POST : ', request.POST)
         formset = OriginalImageFormset(request.POST, request.FILES, instance=request.user.myuser)
 
         if formset.is_valid():
@@ -84,4 +83,40 @@ def upload_images(request):
 
     context ={'upload_imgs_formset':formset}
     return render(request, 'imagefilters/upload_images_form.html', context=context)
+
+
+def image_filtering_options(request, pk):
+
+    original_img = request.user.myuser.useroriginalimage_set.get(pk=pk).original_image
+    all_filtered_imgs = [img.edited_image for img in request.user.myuser.useroriginalimage_set.get(pk=pk).usereditedimage_set.all()]
+
+    print('all_filtered_imgs : ', all_filtered_imgs)
+
+    context = {'original_img':original_img, 'all_filtered_imgs':all_filtered_imgs, 'pk_original_img':pk}
+    return render(request, 'imagefilters/image_filtering_options.html', context=context)
+
+
+def filter_image_form(request, pk):
+
+    EditedImageFormSet = inlineformset_factory(UserOriginalImage, UserEditedImage, fields=('filter_type',), extra=1)
+
+    my_instance = UserOriginalImage.objects.get(pk=pk)
+    formset = EditedImageFormSet(queryset=UserEditedImage.objects.none(), instance=my_instance)
+
+    #form = EditImagesForm()
+
+    if(request.method == 'POST'):
+
+        #form = EditImagesForm(request.POST)
+        formset = EditedImageFormSet(request.POST, instance=my_instance)
+
+        if formset.is_valid():
+            formset.save()
+
+            print('form.cleaned_data = ', formset.cleaned_data)
+
+            return redirect('/home')
+
+    context ={'formset':formset}
+    return render(request, 'imagefilters/filter_image_form.html', context=context)
 

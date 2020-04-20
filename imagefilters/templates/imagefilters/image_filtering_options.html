@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Filtering options</title>
+</head>
+<body>
+
+<h1>This is the filtering options</h1>
+
+
+<section class="services py-5 bg-light1 text-center">
+    <div class="row">
+  <div class="col-sm-3">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Original image</h5>
+
+          <img src="{{ original_img.url }}">
+
+        <a href="" class="btn btn-primary">Update</a>
+
+      </div>
+
+    </div>
+  </div>
+  <div class="col-sm-9">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Edited images</h5>
+
+          <table class="table table-hover">
+              {% for image in all_filtered_imgs %}
+              {% if image %}
+                <th scope="col">
+                    <div class="w3-card-4">
+                        <img src="{{image.url}}" width="200">
+                    </div>
+                </th>
+
+              {% endif %}
+              {% endfor%}
+
+            <tbody>
+
+
+            </tbody>
+          </table>
+
+        <a href="{% url 'imagefilters:filter_image_form' pk_original_img %}" class="btn btn-primary">Choose filter</a>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+</body>
+</html>

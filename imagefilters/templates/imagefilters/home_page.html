@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
+    {% load static %}
     <meta charset="UTF-8">
     <title>Home</title>
 
     {% include 'imagefilters/navbar.html' %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'imagefilters/css/image_gallery.css' %}">
 
 </head>
 <body>
@@ -47,12 +49,15 @@
               {% if image %}
                 <th scope="col">
                     <div class="w3-card-4">
-                      <img src="{{image.original_image.url}}">
+                        <a href="{% url 'imagefilters:filtering_options' image.pk %}">
+                            <img src="{{image.original_image.url}}" width="200">
+                        </a>
                     </div>
                 </th>
 
               {% endif %}
               {% endfor%}
+
               <tr>
                 <th scope="col">
                     <div class="w3-card-4">
