@@ -2,8 +2,12 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.forms import inlineformset_factory
 
+
 from .forms import *
 from .models import *
+from .conventional_image_filters import *
+
+
 # Create your views here.
 def login_page(request):
 
@@ -119,4 +123,27 @@ def filter_image_form(request, pk):
 
     context ={'formset':formset}
     return render(request, 'imagefilters/filter_image_form.html', context=context)
+
+
+def gaussian_filter(request, pk):
+
+    original_img = UserOriginalImage.objects.get(pk=pk)
+
+    img_content = gaussian_image_filter(original_img.original_image)
+
+    UserEditedImage.objects.create(original_image=original_img, edited_image=img_content)
+
+    #context = {}
+    #return render(request, 'imagefilters/gaussian_filter_result.html', context=context)
+
+    return redirect('/home/filtering_options/{}'.format(pk))
+
+
+def edging_filter(request, pk):
+
+    original_img = UserOriginalImage.objects.get(pk=pk)
+    img_content = edging_image_filter(original_img.original_image)
+    UserEditedImage.objects.create(original_image=original_img, edited_image=img_content)
+
+    return redirect('/home/filtering_options/{}'.format(pk))
 

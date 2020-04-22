@@ -13,4 +13,7 @@ urlpatterns=[
     path('home/upload_images', views.upload_images, name='upload_imgs'),
     path('home/filtering_options/<str:pk>', views.image_filtering_options, name='filtering_options'),
     path('home/filtering_options/<str:pk>/filtering_form', views.filter_image_form, name='filter_image_form'),
+
+    path('home/filtering_options/<str:pk>/blurring', views.gaussian_filter, name='gaussian_filter'),
+    path('home/filtering_options/<str:pk>/edging', views.edging_filter, name='edging_filter'),
 ]
