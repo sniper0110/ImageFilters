@@ -42,7 +42,9 @@
             <div class="box-2">
                 {% for image in images %}
                     {% if image %}
-                        <img class="card card-1" src="{{image.original_image.url}}" alt="">
+                        <a href="{% url 'imagefilters:filtering_options' image.pk %}">
+                            <img class="card card-1" src="{{image.original_image.url}}" alt="">
+                        </a>
                     {% endif %}
                 {% endfor %}
             </div>
