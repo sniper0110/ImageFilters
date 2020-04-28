@@ -3,8 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <title>Profile</title>
+    {% load static %}
+    {% include 'imagefilters/bootstrap_includes.html' %}
+    <link rel="stylesheet" href="{% static 'imagefilters/css/custom_css_styles.css' %}">
+
 </head>
 <body>
-<h3>This is the user profile page!</h3>
+    <div class="basic-infos-container">
+        <h5 class="card-title">Basic infos</h5>
+
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr>
+                <td>{{request.user.username}}</td>
+                <td>{{request.user.email}}</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <a href="" class="btn btn-primary">Update</a>
+    </div>
 </body>
 </html>
