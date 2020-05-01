@@ -21,7 +21,7 @@ class TestViews(TestCase):
 
         User = get_user_model()
         self.user = User.objects.create_user('test', 'test@gmail.com', 'test')
-        self.client.login(username='test', password='test')
+        #login
 
         self.myuser = MyUser.objects.create(
             user=self.user,
@@ -45,10 +45,21 @@ class TestViews(TestCase):
 
     def test_login_page_view_GET(self):
 
+        self.client.login(username='test', password='test')
         response = self.client.get(self.login_url)
 
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'imagefilters/login_page.html')
+
+    def test_login_page_view_POST(self):
+
+        self.client.logout()
+        response = self.client.post(self.login_url, {
+            'username':'test',
+            'password':'test',
+        })
+
+        self.assertEqual(response.status_code, 302)
 
 
     def test_register_page_view_GET(self):
@@ -61,6 +72,7 @@ class TestViews(TestCase):
 
     def test_image_filtering_options_view_GET(self):
 
+        self.client.login(username='test', password='test')
         response = self.client.get(self.image_filtering_options_url)
 
         self.assertEqual(response.status_code, 200)
