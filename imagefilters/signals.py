@@ -8,13 +8,18 @@ def generate_customer_profile(sender, instance, created, **kwargs):
     if not instance.is_staff:
         if created:
 
-            group = Group.objects.get(name='FreemiumMember')
-            instance.groups.add(group)
-            username = instance.username
+            try:
+                group = Group.objects.get(name='FreemiumMember')
+            except Group.DoesNotExist:
+                print("\'FreemiumMember\' group does not exist!")
+                pass
+            else:
+                instance.groups.add(group)
+                username = instance.username
 
-            MyUser.objects.create(user=instance, my_username=username)
+                MyUser.objects.create(user=instance, my_username=username)
 
-            print("A user has been created (of type MyUser)")
+                print("A user has been created (of type MyUser)")
 
 
 post_save.connect(generate_customer_profile, sender=User)
