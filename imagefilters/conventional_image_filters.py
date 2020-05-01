@@ -59,24 +59,3 @@ def edging_image_filter(image_from_imageField):
         pil_image.close()
 
         return img_content
-
-
-def rgb_to_gray(image_from_imageField):
-
-    try:
-        pil_image = Image.open(image_from_imageField)
-    except:
-        print("Error opening image")
-        return
-    else:
-        np_image = np.asarray(pil_image)
-        np_image = cv2.cvtColor(np_image, cv2.COLOR_RGBA2GRAY)
-
-        modified_pil_image = Image.fromarray(np_image)
-        img_io = BytesIO()
-        modified_pil_image.save(img_io, format='PNG', quality=100)
-        img_content = ContentFile(img_io.getvalue(), 'img.png')
-
-        pil_image.close()
-
-        return img_content

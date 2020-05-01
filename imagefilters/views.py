@@ -125,24 +125,25 @@ def filter_image_form(request, pk):
     return render(request, 'imagefilters/filter_image_form.html', context=context)
 
 
-def apply_gaussian_filter(request, pk):
+def gaussian_filter(request, pk):
 
     original_img = UserOriginalImage.objects.get(pk=pk)
-    original_img.gaussian_filter()
+
+    img_content = gaussian_image_filter(original_img.original_image)
+
+    UserEditedImage.objects.create(original_image=original_img, edited_image=img_content)
+
+    #context = {}
+    #return render(request, 'imagefilters/gaussian_filter_result.html', context=context)
 
     return redirect('/home/filtering_options/{}'.format(pk))
 
 
-def apply_edging_filter(request, pk):
+def edging_filter(request, pk):
 
     original_img = UserOriginalImage.objects.get(pk=pk)
-    original_img.edging_filter()
+    img_content = edging_image_filter(original_img.original_image)
+    UserEditedImage.objects.create(original_image=original_img, edited_image=img_content)
 
     return redirect('/home/filtering_options/{}'.format(pk))
 
-def apply_rgb2gray_filter(request, pk):
-
-    original_img = UserOriginalImage.objects.get(pk=pk)
-    original_img.rgb2gray_filter()
-
-    return redirect('/home/filtering_options/{}'.format(pk))
