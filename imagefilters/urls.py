@@ -14,6 +14,7 @@ urlpatterns=[
     path('home/filtering_options/<str:pk>', views.image_filtering_options, name='filtering_options'),
     path('home/filtering_options/<str:pk>/filtering_form', views.filter_image_form, name='filter_image_form'),
 
-    path('home/filtering_options/<str:pk>/blurring', views.gaussian_filter, name='gaussian_filter'),
-    path('home/filtering_options/<str:pk>/edging', views.edging_filter, name='edging_filter'),
+    path('home/filtering_options/<str:pk>/blurring', views.apply_gaussian_filter, name='gaussian_filter'),
+    path('home/filtering_options/<str:pk>/edging', views.apply_edging_filter, name='edging_filter'),
+    path('home/filtering_options/<str:pk>/blackAndWhite', views.apply_rgb2gray_filter, name='rgb2gray_filter'),
 ]

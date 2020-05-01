@@ -29,6 +29,7 @@
                     <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
                         <a href="{% url 'imagefilters:gaussian_filter' pk_original_img %}" ><button class="dropdown-item" type="button">Blurring</button></a>
                         <a href="{% url 'imagefilters:edging_filter' pk_original_img %}" ><button class="dropdown-item" type="button">Edging</button></a>
+                        <a href="{% url 'imagefilters:rgb2gray_filter' pk_original_img %}" ><button class="dropdown-item" type="button">Black And White</button></a>
                     </div>
                 </div>
         </div>

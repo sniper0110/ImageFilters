@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from .conventional_image_filters import *
 
 # Create your models here.
 
@@ -22,6 +23,18 @@ class UserOriginalImage(models.Model):
 
     def __str__(self):
         return self.original_image_name
+
+    def gaussian_filter(self):
+        img_content = gaussian_image_filter(self.original_image)
+        UserEditedImage.objects.create(original_image=self, edited_image=img_content, edited_image_name='edited_img_gaussian')
+
+    def edging_filter(self):
+        img_content = edging_image_filter(self.original_image)
+        UserEditedImage.objects.create(original_image=self, edited_image=img_content, edited_image_name='edited_image_edging')
+
+    def rgb2gray_filter(self):
+        img_content = rgb_to_gray(self.original_image)
+        UserEditedImage.objects.create(original_image=self, edited_image=img_content, edited_image_name='edited_image_rgb2gray')
 
 
 class UserEditedImage(models.Model):
