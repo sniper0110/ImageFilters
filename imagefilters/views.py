@@ -12,11 +12,13 @@ from .conventional_image_filters import *
 def login_page(request):
 
     if request.method == "POST":
-        username = request.POST.get('username')
+        email = request.POST.get('email')
         password = request.POST.get('password')
+        print(f"email is : {email}")
+        print(f"password is : {password}")
 
         # TODO : add email as an authentication parameter in the line bellow
-        user = authenticate(request, username=username, password=password)
+        user = authenticate(request, email=email, password=password)
 
 
         if user is not None:
