@@ -141,6 +141,8 @@ background-color: #8ebf42
 }
 
 
+
+
 .main-content{
     display:flex;
     flex-direction:column;
@@ -152,4 +154,8 @@ background-color: #8ebf42
     font-family:"Comic Sans MS", cursive, sans-serif;
     margin:20px auto 20px auto;
     padding:0;
+}
+
+.my-spacer{
+    margin-bottom:110px;
 }
