@@ -22,13 +22,13 @@
 
             <tbody>
             <tr>
-                <td>{{request.user.username}}</td>
-                <td>{{request.user.email}}</td>
+                <td>{{request.user.myuser.my_username}}</td>
+                <td>{{request.user.myuser.email}}</td>
             </tr>
             </tbody>
         </table>
 
-        <a href="" class="btn btn-primary">Update</a>
+        <a href="{% url 'imagefilters:update_user_profile' %}" class="btn btn-primary">Update</a>
     </div>
 </body>
 </html>

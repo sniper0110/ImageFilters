@@ -5,6 +5,7 @@
    <!--Made with love by Mutiullah Samim -->
 
 	{% load static %}
+	{% load socialaccount %}
 
 	<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
@@ -28,7 +29,7 @@
 				<h3>Sign In</h3>
 				<div class="d-flex justify-content-end social_icon">
 					<span><i class="fab fa-facebook-square"></i></span>
-					<span><i class="fab fa-google-plus-square"></i></span>
+					<a href="{% provider_login_url 'google' %}"><span><i class="fab fa-google-plus-square"></i></span></a>
 					<span><i class="fab fa-twitter-square"></i></span>
 				</div>
 			</div>

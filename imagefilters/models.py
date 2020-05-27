@@ -2,12 +2,15 @@ from django.db import models
 from django.contrib.auth.models import User
 from .conventional_image_filters import *
 
+from .common import build_upload_to_path_for_original_image, build_upload_to_path_for_edited_image
+
 # Create your models here.
 
 class MyUser(models.Model):
 
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
     my_username = models.CharField(max_length=200, null=True)
+    email = models.EmailField(null=True)
 
     def __str__(self):
         return self.my_username
@@ -18,11 +21,13 @@ class UserOriginalImage(models.Model):
     original_image_name = models.CharField(max_length=200, null=True)
     myuser = models.ForeignKey(MyUser, on_delete=models.CASCADE, null=True, blank=True)
 
-    original_image = models.ImageField(null=True, upload_to="original_images/")
+    original_image = models.ImageField(null=True, upload_to=build_upload_to_path_for_original_image)
     creation_date = models.DateTimeField(auto_now=True, null=True)
+
 
     def __str__(self):
         return self.original_image_name
+
 
     def gaussian_filter(self):
         img_content = gaussian_image_filter(self.original_image)
@@ -46,7 +51,7 @@ class UserEditedImage(models.Model):
 
     edited_image_name = models.CharField(max_length=200, null=True)
     original_image = models.ForeignKey(UserOriginalImage, on_delete=models.DO_NOTHING, null=True)
-    edited_image = models.ImageField(null=True, upload_to="edited_images")
+    edited_image = models.ImageField(null=True, upload_to=build_upload_to_path_for_edited_image)
     creation_date = models.DateTimeField(auto_now=True, null=True)
 
     filter_type = models.CharField(max_length=200, null=True, choices=FILTER_TYPES)
