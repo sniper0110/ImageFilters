@@ -20,4 +20,6 @@ urlpatterns=[
     path('home/filtering_options/<str:pk>/blurring', views.apply_gaussian_filter, name='gaussian_filter'),
     path('home/filtering_options/<str:pk>/edging', views.apply_edging_filter, name='edging_filter'),
     path('home/filtering_options/<str:pk>/blackAndWhite', views.apply_rgb2gray_filter, name='rgb2gray_filter'),
+
+    path('home/filtering_options/<str:pk_original>/<str:pk_edited>/delete', views.delete_edited_image, name='delete_edited_image'),
 ]

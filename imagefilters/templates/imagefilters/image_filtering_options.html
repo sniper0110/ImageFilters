@@ -39,8 +39,11 @@
         <div class="main-content">
             <div class="box-2">
                 {% for image in all_filtered_imgs %}
-                    {% if image %}
-                        <img class="card card-1" src="{{image.url}}">
+                    {% if image.edited_image %}
+                        <div>
+                            <img class="card card-1" src="{{image.edited_image.url}}">
+                            <a href="{% url 'imagefilters:delete_edited_image' pk_original_img image.pk %}"><button type="button">Delete</button></a>
+                        </div>
                     {% endif %}
                 {% endfor%}
             </div>

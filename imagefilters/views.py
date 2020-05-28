@@ -55,13 +55,13 @@ def logout_user(request):
     logout(request)
     return redirect('/login')
 
-@login_required
+@login_required(login_url='/login')
 def user_profile(request):
 
     context = {}
     return render(request, 'imagefilters/user_profile_page.html', context=context)
 
-@login_required
+@login_required(login_url='/login')
 def update_user_profile(request):
 
     myuser = request.user.myuser
@@ -80,7 +80,7 @@ def update_user_profile(request):
     context = {'form' : form}
     return render(request, 'imagefilters/update_user_profile_form.html', context=context)
 
-@login_required
+@login_required(login_url='/login')
 def user_home_page(request):
 
     user = request.user
@@ -90,7 +90,7 @@ def user_home_page(request):
     context = {'images':images}
     return render(request, 'imagefilters/home_page.html', context=context)
 
-@login_required
+@login_required(login_url='/login')
 def upload_images(request):
 
     OriginalImageFormset = inlineformset_factory(MyUser, UserOriginalImage,
@@ -113,16 +113,16 @@ def upload_images(request):
     context ={'upload_imgs_formset':formset}
     return render(request, 'imagefilters/upload_images_form.html', context=context)
 
-@login_required
+@login_required(login_url='/login')
 def image_filtering_options(request, pk):
 
     original_img = request.user.myuser.useroriginalimage_set.get(pk=pk).original_image
-    all_filtered_imgs = [img.edited_image for img in request.user.myuser.useroriginalimage_set.get(pk=pk).usereditedimage_set.all()]
+    all_filtered_imgs = request.user.myuser.useroriginalimage_set.get(pk=pk).usereditedimage_set.all()
 
     context = {'original_img':original_img, 'all_filtered_imgs':all_filtered_imgs, 'pk_original_img':pk}
     return render(request, 'imagefilters/image_filtering_options.html', context=context)
 
-@login_required
+@login_required(login_url='/login')
 def filter_image_form(request, pk):
 
     EditedImageFormSet = inlineformset_factory(UserOriginalImage, UserEditedImage, fields=('filter_type',), extra=1)
@@ -147,7 +147,7 @@ def filter_image_form(request, pk):
     context ={'formset':formset}
     return render(request, 'imagefilters/filter_image_form.html', context=context)
 
-@login_required
+@login_required(login_url='/login')
 def apply_gaussian_filter(request, pk):
 
     original_img = UserOriginalImage.objects.get(pk=pk)
@@ -155,7 +155,7 @@ def apply_gaussian_filter(request, pk):
 
     return redirect('/home/filtering_options/{}'.format(pk))
 
-@login_required
+@login_required(login_url='/login')
 def apply_edging_filter(request, pk):
 
     original_img = UserOriginalImage.objects.get(pk=pk)
@@ -163,10 +163,24 @@ def apply_edging_filter(request, pk):
 
     return redirect('/home/filtering_options/{}'.format(pk))
 
-@login_required
+@login_required(login_url='/login')
 def apply_rgb2gray_filter(request, pk):
 
     original_img = UserOriginalImage.objects.get(pk=pk)
     original_img.rgb2gray_filter()
 
     return redirect('/home/filtering_options/{}'.format(pk))
+
+
+@login_required(login_url='/login')
+def delete_edited_image(request, pk_original, pk_edited):
+
+    if request.method == 'POST':
+        edited_image = UserEditedImage.objects.get(pk=pk_edited)
+        edited_image.delete()
+
+        return redirect(f'/home/filtering_options/{pk_original}')
+
+    context = {'pk_original_img':pk_original}
+    return render(request, 'imagefilters/delete_edited_image_form.html', context=context)
+
