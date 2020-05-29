@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
 from django.forms import inlineformset_factory
 from django.contrib.auth.decorators import login_required
@@ -179,7 +179,7 @@ def delete_edited_image(request, pk_original, pk_edited):
         edited_image = UserEditedImage.objects.get(pk=pk_edited)
         edited_image.delete()
 
-        return redirect(f'/home/filtering_options/{pk_original}')
+        return HttpResponseRedirect(f'/home/filtering_options/{pk_original}')#redirect(f'/home/filtering_options/{pk_original}')
 
     context = {'pk_original_img':pk_original}
     return render(request, 'imagefilters/delete_edited_image_form.html', context=context)

@@ -42,7 +42,12 @@
                     {% if image.edited_image %}
                         <div>
                             <img class="card card-1" src="{{image.edited_image.url}}">
-                            <a href="{% url 'imagefilters:delete_edited_image' pk_original_img image.pk %}"><button type="button">Delete</button></a>
+
+                            <form action="{% url 'imagefilters:delete_edited_image' pk_original_img image.pk %}" method="post">
+                                {% csrf_token %}
+                                <input type="submit" value="Delete">
+                            </form>
+
                         </div>
                     {% endif %}
                 {% endfor%}
@@ -57,6 +62,8 @@
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<script src="{% static 'imagefilters/js/image_filtering_options.js' %}"></script>
 
 </body>
 </html>
